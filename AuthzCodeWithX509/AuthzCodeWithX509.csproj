@@ -16,10 +16,4 @@
     <PackageReference Include="Microsoft.Identity.Web.DownstreamApi" Version="3.4.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="cert.pfx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
 </Project>

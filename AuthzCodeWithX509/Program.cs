@@ -1,3 +1,4 @@
+using AuthzCodeWithX509;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authorization;
@@ -5,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Azure;
 using Microsoft.Extensions.Hosting.Internal;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Microsoft.Identity.Client;
 using Microsoft.Identity.Client.Extensibility;
 using Microsoft.Identity.Web;
@@ -19,14 +21,9 @@ builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
     .AddMicrosoftIdentityWebApp(options =>
     {
         builder.Configuration.Bind("AzureAd", options);
-        options.Events.OnRedirectToIdentityProvider = context =>
-        {
-            return Task.CompletedTask;
-        };
         options.Events.OnAuthorizationCodeReceived = context =>
         {
-            var tokenBuilder = builder.Services.
-            var code = context.ProtocolMessage.Code;
+            context.SetClientAssertion(options);
             return Task.CompletedTask;
         };
     });

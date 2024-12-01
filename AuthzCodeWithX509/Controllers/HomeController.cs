@@ -10,12 +10,10 @@ namespace AuthzCodeWithX509.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        MicrosoftIdentityConsentAndConditionalAccessHandler _consentHandler;
 
-        public HomeController(ILogger<HomeController> logger, MicrosoftIdentityConsentAndConditionalAccessHandler consentHandler)
+        public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-            _consentHandler = consentHandler;
         }
 
         public IActionResult Index()
@@ -25,8 +23,6 @@ namespace AuthzCodeWithX509.Controllers
 
         public IActionResult Privacy()
         {
-            // https://github.com/Azure-Samples/ms-identity-ca-auth-context/blob/main/TodoListClient/Controllers/TodoListController.cs
-            _consentHandler.ChallengeUser(new string[] { "user.read" }, "c1");
             return View();
         }
 

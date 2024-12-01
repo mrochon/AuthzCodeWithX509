@@ -6,7 +6,7 @@ $cert = New-SelfSignedCertificate -Subject "CN=$certname" -CertStoreLocation "Ce
 Export-Certificate -Cert $cert -FilePath "C:\temp\$certname.cer"  
 ```
 
-## 2nd FA
+## Step-up 2nd FA
 
 Under Conditional Access Policies:
 
@@ -28,6 +28,6 @@ which is url-encoded:
 https://login.microsoftonline.com/MngEnv350432.onmicrosoft.com/oauth2/v2.0/authorize?client_id=97f0c70c-5fa2-4d1c-b594-cda35a52a697&nonce=nonce&response_mode=fragment&response_type=id_token&scope=openid+profile+email&sso_nonce=AwABEgEAAAADAOz_BQD0_7lVa8gXY3RnTntupZdpYG-9_jQPs6Leew_kFv9UAopU5WnahQM3ArjB2_xrdBAy4TNSLEe5WvSPKOsys0PsM00gAA&client-request-id=09f6fffc-af73-4a5a-8b58-c48252e0ce3c&mscrid=09f6fffc-af73-4a5a-8b58-c48252e0ce3c&claims=%7B%22id_token%22%3A%7B%22acrs%22%3A%7B%22essential%22%3Atrue%2C%22value%22%3A%22c1%22%7D%7D%7D
 ```
 
-Returns an id_token with acrs claim, valued at c1.
+Returns an id_token with acrs claim, value=c1.
 
 Solution to 'no 2nd FA' on subsequent requests: logout user!

@@ -1,4 +1,6 @@
-﻿## Create cert
+﻿## Use X509 to redeem Authz Code
+
+### Create cert
 
 ```Powershell
 $certname = "ups-app4"
@@ -6,7 +8,15 @@ $cert = New-SelfSignedCertificate -Subject "CN=$certname" -CertStoreLocation "Ce
 Export-Certificate -Cert $cert -FilePath "C:\temp\$certname.cer"  
 ```
 
-## Step-up 2nd FA
+### Register app
+
+Upload .cer (public key of the cert) to app secrets in Entra ID app registration.
+
+### Modify app
+
+Check program.cs for changes.
+
+### Step-up 2nd FA (unrelated to above)
 
 Under Conditional Access Policies:
 

@@ -2,7 +2,7 @@
 
 ### Purpose
 
-Provide support for using X509 cert (asymmetric keys) to redeem an authorization code in OAuth2 flow, when using Microsoft Identity Web toolkit. Currently, the toolkit supports only use of symmetric secrets (ClientSecret) in 
+Provide support for using X509 cert (asymmetric keys) to redeem the authorization code in OAuth2 flow, when using Microsoft Identity Web toolkit. Currently, the toolkit supports only use of symmetric secrets (ClientSecret) in 
 that flow (https://github.com/AzureAD/microsoft-identity-web/issues/3154). (MSAL does support X509 for the client credentials flow.)
 
 ### Create cert

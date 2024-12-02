@@ -13,6 +13,7 @@ using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Cryptography.X509Certificates;
+using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +22,16 @@ builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
     .AddMicrosoftIdentityWebApp(options =>
     {
         builder.Configuration.Bind("AzureAd", options);
+        //var onRedirect = options.Events.OnRedirectToIdentityProvider;
+        //options.Events.OnRedirectToIdentityProvider = context =>
+        //{
+        //    if(context.Properties.Items.ContainsKey("claims"))
+        //    {
+        //        context.ProtocolMessage.SetParameter("claims", JsonSerializer.Serialize(new { id_token = new {acrs = new { essential = true, value = context.Properties.Items["claims"] } }}));
+        //    }
+        //    onRedirect(context);
+        //    return Task.CompletedTask;
+        //};
         options.Events.OnAuthorizationCodeReceived = context =>
         {
             context.SetClientAssertion(options);
@@ -35,9 +46,10 @@ builder.Services.AddControllersWithViews(options =>
         .Build();
     options.Filters.Add(new AuthorizeFilter(policy));
 });
-
 builder.Services.AddRazorPages()
     .AddMicrosoftIdentityUI();
+
+builder.Services.AddMicrosoftIdentityConsentHandler();
 
 builder.Services.Configure<OpenIdConnectOptions>(options =>
 {

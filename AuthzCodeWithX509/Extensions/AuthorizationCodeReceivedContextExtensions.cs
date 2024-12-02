@@ -25,6 +25,10 @@ namespace AuthzCodeWithX509
             MicrosoftIdentityOptions options)
         {
             var creds = GetCert(options);
+            if(creds == null)
+            {
+                return; // perhaps a secret is configured. Entra will return an error if neither secret nor X509 is configured or both are configured
+            }
             // https://www.rfc-editor.org/rfc/rfc7521#page-10
             var iss = options.ClientId;
             var sub = options.ClientId;
@@ -48,7 +52,7 @@ namespace AuthzCodeWithX509
             context.TokenEndpointRequest!.ClientAssertion = jwtHandler.WriteToken(token);
             context.TokenEndpointRequest!.ClientAssertionType = "urn:ietf:params:oauth:client-assertion-type:jwt-bearer";
         }
-        private static X509SigningCredentials GetCert(MicrosoftIdentityOptions options)
+        private static X509SigningCredentials? GetCert(MicrosoftIdentityOptions options)
         {
             if ((options.ClientCertificates != null) && options.ClientCertificates.Any())
             {
@@ -66,7 +70,7 @@ namespace AuthzCodeWithX509
                 }
                 throw new Exception("Certificate not found");
             }
-            throw new Exception("Certificate not found");
+            return null;
         }
     }
 }

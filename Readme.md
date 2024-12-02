@@ -21,7 +21,7 @@ Upload .cer (public key of the cert) to app secrets in Entra ID app registration
 
 Check program.cs for changes.
 
-### Step-up 2nd FA (unrelated to above)
+## Step-up 2nd FA (unrelated to above)
 
 Under Conditional Access Policies:
 

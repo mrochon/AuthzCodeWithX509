@@ -49,7 +49,8 @@ builder.Services.AddControllersWithViews(options =>
 builder.Services.AddRazorPages()
     .AddMicrosoftIdentityUI();
 
-builder.Services.AddMicrosoftIdentityConsentHandler();
+builder.Services.AddHttpContextAccessor()
+    .AddMicrosoftIdentityConsentHandler();
 
 builder.Services.Configure<OpenIdConnectOptions>(options =>
 {

@@ -33,7 +33,7 @@ namespace AuthzCodeWithX509.Controllers
         public IActionResult Privacy()
         {
             // If user's authentication did not involve c1 Authentication Context, re-issue challenge for it
-            if(User.Claims.FirstOrDefault(c => (c.Type == "acrs") && c.Value.Split(',').Contains("c1")) == null)
+            if (User.Claims.FirstOrDefault(c => (c.Type == "acrs") && c.Value.Split(',').Contains("c1")) == null)
             {
                 var claimsRequired = new { id_token = new { acrs = new { essential = true, value = "c1" } } };
                 _consentHandler.ChallengeUser(scopes: null, claims: JsonSerializer.Serialize(claimsRequired));
